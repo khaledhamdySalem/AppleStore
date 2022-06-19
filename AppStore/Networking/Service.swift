@@ -14,20 +14,7 @@ class Service {
     // For SearchVC Screen
     func fetchData(searchTerm: String, complition: @escaping ([Result]?, Error?) -> Void) {
         let urlString = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                complition(nil, error)
-            }
-            do {
-                guard let data = data else { return }
-                let result = try JSONDecoder().decode(SearchResult.self, from: data)
-                complition(result.results, error)
-            } catch {
-                complition(nil, error)
-            }
-            
-        }.resume()
+        fetchGenaricJsonData(urlString: urlString, complition: complition)
     }
     
     // For AppsVC Screen
@@ -41,7 +28,18 @@ class Service {
         fetchAppGroup(urlString: urlString, complition: complition)
     }
     
-    func fetchAppGroup(urlString:String, complition: @escaping (AppGroup?, Error?) -> Void) {
+    func fetchAppGroup(urlString: String, complition: @escaping (AppGroup?, Error?) -> Void) {
+        fetchGenaricJsonData(urlString: urlString, complition: complition)
+    }
+    
+    func fetchSocialApps(complition: @escaping ([SocialHeaderResponse]?, Error?) -> Void) {
+        let urlString = "https://api.letsbuildthatapp.com/appstore/social"
+        fetchGenaricJsonData(urlString: urlString, complition: complition)
+    }
+    
+    //Genaric Servise
+    func fetchGenaricJsonData<T: Decodable>(urlString: String ,complition: @escaping (T?, Error?) -> Void) {
+        
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -51,7 +49,7 @@ class Service {
             
             do {
                 guard let data = data else { return }
-                let appGroup = try JSONDecoder().decode(AppGroup.self, from: data)
+                let appGroup = try JSONDecoder().decode(T.self, from: data)
                 complition(appGroup, nil)
             } catch {
                 complition(nil, error)

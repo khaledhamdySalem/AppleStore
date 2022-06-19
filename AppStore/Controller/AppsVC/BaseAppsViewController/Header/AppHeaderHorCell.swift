@@ -9,9 +9,17 @@ import UIKit
 
 class AppHeaderHorCell: UICollectionViewCell {
     
+    var socials: SocialHeaderResponse? {
+        didSet {
+            self.titleLabel.text = socials?.tagline
+            self.companyLabel.text = socials?.name
+            self.imageView.sd_setImage(with: URL(string: socials?.imageUrl ?? ""))
+        }
+    }
+    
     let companyLabel = UILabel(text: "Facebook", font: UIFont.boldSystemFont(ofSize: 12), numberOfLines: 1, tintColor: .blue)
     let titleLabel = UILabel(text: "Keeping up with friends is faster than ever", font: UIFont.systemFont(ofSize: 24), numberOfLines: 2, tintColor: .black)
-    let imageView = UIImageView(cornerRad: 8, image: UIImage(), background: .red)
+    let imageView = UIImageView(cornerRad: 8, image: UIImage())
     
     override init(frame: CGRect) {
         super.init(frame: frame)

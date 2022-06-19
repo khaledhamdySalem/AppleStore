@@ -9,6 +9,14 @@ import UIKit
 
 class AppHeaderHorController: BaseViewController {
     
+    var socials: [SocialHeaderResponse]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,12 +31,12 @@ class AppHeaderHorController: BaseViewController {
 
 extension AppHeaderHorController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return socials?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.appHeaderHorCell, for: indexPath) as! AppHeaderHorCell
-        
+        cell.socials = socials?[indexPath.item]
         return cell
     }
     
@@ -37,6 +45,6 @@ extension AppHeaderHorController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        .init(top: 0, left: 16, bottom: 0, right: 0)
+        .init(top: 0, left: 16, bottom: 16, right: 16)
     }
 }

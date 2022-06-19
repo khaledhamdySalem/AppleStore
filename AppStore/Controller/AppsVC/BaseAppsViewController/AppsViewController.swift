@@ -11,10 +11,18 @@ class AppsViewController: UIViewController {
     
     // MARK: -- Properties
     var groups = [AppGroup]()
-    
+    var socialApps = [SocialHeaderResponse]()
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         return collectionView
+    }()
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let ac = UIActivityIndicatorView(style: .large)
+        ac.startAnimating()
+        ac.hidesWhenStopped = true
+        ac.color = .black
+        return ac
     }()
     
     override func viewDidLoad() {
@@ -22,17 +30,16 @@ class AppsViewController: UIViewController {
         view.backgroundColor = .white
         configureCollectionView()
         fetchFreeGames()
+        configureActivityIndicator()
     }
    
     let dispatchGroup = DispatchGroup()
     var group1: AppGroup?
     var group2: AppGroup?
     var group3: AppGroup?
+    
     // MARK: -- Fetching Data ✔️
     fileprivate func fetchFreeGames() {
-        
-        
-       
         dispatchGroup.enter()
         Service.shared.fetchFreeGames {[weak self] appGroup, error in
             guard let self = self else { return }
@@ -57,7 +64,13 @@ class AppsViewController: UIViewController {
             self.group3 = group
         }
         
+        Service.shared.fetchSocialApps {[weak self] socialApps, error in
+            guard let self = self, let socialApps = socialApps else { return }
+            self.socialApps = socialApps
+        }
+        
         dispatchGroup.notify(queue: .main) {
+            self.activityIndicator.stopAnimating()
             guard let group1 = self.group1, let group2 = self.group2, let group3 = self.group3 else { return }
             self.groups.append(group1)
             self.groups.append(group2)
@@ -84,18 +97,11 @@ class AppsViewController: UIViewController {
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Idetidiers.appsViewHeader)
     }
     
-    // 2- For Header ☑️
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Idetidiers.appsViewHeader, for: indexPath) as! AppsPageHeader
-        return header
-    }
-    
-    // 3- For Header ☑️
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: 0, height: 0)
+    fileprivate func configureActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerInSuperview()
     }
 }
-
 
 // MARK: -- Extension for DataSourse And Delegate
 extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -116,6 +122,21 @@ extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 16, left: 0, bottom: 0, right: 0)
+        .init(top: 16, left: 0, bottom: 0, right: 0)
+    }
+}
+
+// MARK: -- Header
+extension AppsViewController {
+    // 2- For Header ☑️
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Idetidiers.appsViewHeader, for: indexPath) as! AppsPageHeader
+        header.appHeaderHorController.socials = socialApps
+        return header
+    }
+    
+    // 3- For Header ☑️
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: 0, height: 300)
     }
 }
