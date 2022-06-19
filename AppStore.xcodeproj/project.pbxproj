@@ -169,9 +169,9 @@
 		EAE59ECC285C4F3F00FA5F50 /* SearchVC */ = {
 			isa = PBXGroup;
 			children = (
+				EAE59ED3285C565C00FA5F50 /* Controller */,
 				EAE59EDC285C956E00FA5F50 /* Model */,
 				EAE59ED2285C565600FA5F50 /* Views */,
-				EAE59ED3285C565C00FA5F50 /* Controller */,
 			);
 			path = SearchVC;
 			sourceTree = "<group>";

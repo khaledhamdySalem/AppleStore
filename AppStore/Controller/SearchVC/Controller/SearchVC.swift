@@ -44,7 +44,7 @@ class SearchVC: UIViewController {
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
         }
-        self.collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: Idetidiers.searchCell)
+        self.collectionView.register(SearchCell.self, forCellWithReuseIdentifier: Idetidiers.searchCell)
         collectionView.dataSource = self
         collectionView.delegate = self
     }

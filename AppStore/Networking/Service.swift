@@ -17,7 +17,6 @@ class Service {
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print(error)
                 complition(nil, error)
             }
             do {
@@ -25,7 +24,6 @@ class Service {
                 let result = try JSONDecoder().decode(SearchResult.self, from: data)
                 complition(result.results, error)
             } catch {
-                print(error)
                 complition(nil, error)
             }
             
@@ -39,7 +37,6 @@ class Service {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print(error)
                 complition(nil, error)
             }
             
@@ -48,7 +45,6 @@ class Service {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data)
                 complition(appGroup, nil)
             } catch {
-                print(error)
                 complition(nil, error)
             }
         }.resume()
