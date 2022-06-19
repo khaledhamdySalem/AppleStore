@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppsHorizontalController: BaseViewController {
+class AppsHorizontalController: HorizontalSnappingController {
     
     fileprivate let topBottomPadding: CGFloat = 16
     fileprivate let lineSpacing: CGFloat = 10
@@ -22,9 +22,7 @@ class AppsHorizontalController: BaseViewController {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: Idetidiers.AppsHorCell)
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
-            layout.scrollDirection = .horizontal
-        }
+        
     }
 }
 
