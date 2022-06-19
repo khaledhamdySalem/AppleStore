@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
+import Combine
 class AppsViewController: UIViewController {
     
     // MARK: -- Properties
-    var appGroup: AppGroup?
+    var groups = [AppGroup]()
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -21,17 +21,48 @@ class AppsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureCollectionView()
-        fetchData()
+        fetchFreeGames()
     }
-    
+   
+    let dispatchGroup = DispatchGroup()
+    var group1: AppGroup?
+    var group2: AppGroup?
+    var group3: AppGroup?
     // MARK: -- Fetching Data ✔️
-    fileprivate func fetchData() {
-        Service.shared.fetchGames { appGroup, error in
-            if let error = error {
-                print(error)
-            }
+    fileprivate func fetchFreeGames() {
+        
+        
+       
+        dispatchGroup.enter()
+        Service.shared.fetchFreeGames {[weak self] appGroup, error in
+            guard let self = self else { return }
+            self.dispatchGroup.leave()
+            guard let group = appGroup else { return }
+            self.group1 = group
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchPaidGames {[weak self] appGroup, error in
+            guard let self = self else { return }
+            self.dispatchGroup.leave()
+            guard let group = appGroup else { return }
+            self.group2 = group
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchAppGroup(urlString: "https://rss.applemarketingtools.com/api/v2/us/books/top-free/50/books.json") {[weak self] appGroup, error in
+            guard let self = self else { return }
+            self.dispatchGroup.leave()
+            guard let group = appGroup else { return }
+            self.group3 = group
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            guard let group1 = self.group1, let group2 = self.group2, let group3 = self.group3 else { return }
+            self.groups.append(group1)
+            self.groups.append(group2)
+            self.groups.append(group3)
             
-            self.appGroup = appGroup
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -46,7 +77,7 @@ class AppsViewController: UIViewController {
         }
         collectionView.dataSource = self
         collectionView.delegate = self
-       
+        
         // register cell
         self.collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: Idetidiers.appsGroupCell)
         // 1- register header ☑️
@@ -56,13 +87,12 @@ class AppsViewController: UIViewController {
     // 2- For Header ☑️
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Idetidiers.appsViewHeader, for: indexPath) as! AppsPageHeader
-        
         return header
     }
     
     // 3- For Header ☑️
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: 0, height: 300)
+        return .init(width: 0, height: 0)
     }
 }
 
@@ -70,13 +100,14 @@ class AppsViewController: UIViewController {
 // MARK: -- Extension for DataSourse And Delegate
 extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return groups.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.appsGroupCell, for: indexPath) as! AppsGroupCell
-        cell.titleLabel.text = appGroup?.feed.title
-        cell.controller.appGroup = appGroup
+        
+        cell.titleLabel.text = groups[indexPath.item].feed.title
+        cell.controller.appGroup = groups[indexPath.item]
         return cell
     }
     
@@ -88,18 +119,3 @@ extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelega
         return .init(top: 16, left: 0, bottom: 0, right: 0)
     }
 }
-
-// If I want to create header
-// 1- Adding register for header like this
-// collectionView.register("", forSupplementaryViewOfKind: "", withReuseIdentifier: "")
-
-// 2- adding viewforsupplay like this
-/*
- func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
- let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Idetidiers.appsViewHeader, for: indexPath)
- return header
- }
- */
-
-
-//3 - retutn height of header using ( referenceSizeForHeaderInSection )

@@ -31,8 +31,17 @@ class Service {
     }
     
     // For AppsVC Screen
-    func fetchGames(complition: @escaping (AppGroup?, Error?) -> Void) {
+    func fetchFreeGames(complition: @escaping (AppGroup?, Error?) -> Void) {
         let urlString = "https://rss.applemarketingtools.com/api/v2/us/apps/top-free/50/apps.json"
+        fetchAppGroup(urlString: urlString, complition: complition)
+    }
+    
+    func fetchPaidGames(complition: @escaping (AppGroup?, Error?) -> Void) {
+        let urlString = "https://rss.applemarketingtools.com/api/v2/us/apps/top-paid/50/apps.json"
+        fetchAppGroup(urlString: urlString, complition: complition)
+    }
+    
+    func fetchAppGroup(urlString:String, complition: @escaping (AppGroup?, Error?) -> Void) {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, response, error in
