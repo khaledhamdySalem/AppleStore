@@ -32,6 +32,7 @@ class AppsViewController: UIViewController {
         fetchFreeGames()
         configureActivityIndicator()
     }
+    
    
     let dispatchGroup = DispatchGroup()
     var group1: AppGroup?
@@ -114,6 +115,12 @@ extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         cell.titleLabel.text = groups[indexPath.item].feed.title
         cell.controller.appGroup = groups[indexPath.item]
+        cell.controller.didTapOnCell = { [weak self] feedResult in
+            guard let self = self else { return }
+            let vc = AppDetailsController()
+            vc.appId = feedResult.id
+            self.show(vc, sender: self)
+        }
         return cell
     }
     

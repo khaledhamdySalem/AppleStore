@@ -11,6 +11,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     fileprivate let topBottomPadding: CGFloat = 16
     fileprivate let lineSpacing: CGFloat = 10
+    var didTapOnCell: ((FeedResults) -> ())?
     
     var appGroup: AppGroup? {
         didSet {
@@ -22,7 +23,6 @@ class AppsHorizontalController: HorizontalSnappingController {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: Idetidiers.AppsHorCell)
-        
     }
 }
 
@@ -53,5 +53,10 @@ extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return lineSpacing
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let app = appGroup?.feed.results[indexPath.item]
+        didTapOnCell?(app!)
     }
 }

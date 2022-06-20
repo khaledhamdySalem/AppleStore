@@ -13,4 +13,5 @@ struct Idetidiers {
     static let AppsHorCell = "appsHorCell"
     static let appsViewHeader = "AppsViewHeader"
     static let appHeaderHorCell = "appHeaderHorCell"
+    static let appDetailsCell = "appDetailsCell"
 }

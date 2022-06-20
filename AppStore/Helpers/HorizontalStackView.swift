@@ -7,15 +7,9 @@
 
 import UIKit
 
-class HorizontalStackView: UIStackView {
-    init(arrangedSubviews: [UIView], spacing: CGFloat = 0) {
-         super.init(frame: .zero)
-        self.spacing = spacing
-        axis = .horizontal
-        self.arrangedSubviews.forEach({addArrangedSubview($0)})
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView], customSpacing: CGFloat = 0) {
+        self.init(arrangedSubviews: arrangedSubviews)
+        self.spacing = customSpacing
     }
 }
