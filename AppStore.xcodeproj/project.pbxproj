@@ -22,6 +22,8 @@
 		EAD325D428609075001A89CF /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325D328609075001A89CF /* ReviewsController.swift */; };
 		EAD325D6286090FD001A89CF /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325D5286090FD001A89CF /* ReviewCell.swift */; };
 		EAD325D828609C19001A89CF /* ReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325D728609C19001A89CF /* ReviewResponse.swift */; };
+		EAD325DB2861D916001A89CF /* TodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325DA2861D916001A89CF /* TodayController.swift */; };
+		EAD325DD2861DA2C001A89CF /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325DC2861DA2C001A89CF /* TodayCell.swift */; };
 		EAE59EB4285C401200FA5F50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE59EB3285C401200FA5F50 /* AppDelegate.swift */; };
 		EAE59EB6285C401200FA5F50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE59EB5285C401200FA5F50 /* SceneDelegate.swift */; };
 		EAE59EBD285C401400FA5F50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EAE59EBC285C401400FA5F50 /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		EAD325D328609075001A89CF /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
 		EAD325D5286090FD001A89CF /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
 		EAD325D728609C19001A89CF /* ReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewResponse.swift; sourceTree = "<group>"; };
+		EAD325DA2861D916001A89CF /* TodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayController.swift; sourceTree = "<group>"; };
+		EAD325DC2861DA2C001A89CF /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		EAE59EB0285C401200FA5F50 /* AppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAE59EB3285C401200FA5F50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EAE59EB5285C401200FA5F50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +157,15 @@
 			path = ReviewCell;
 			sourceTree = "<group>";
 		};
+		EAD325D92861D8FD001A89CF /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				EAD325DA2861D916001A89CF /* TodayController.swift */,
+				EAD325DC2861DA2C001A89CF /* TodayCell.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
 		EAE59EA7285C401200FA5F50 = {
 			isa = PBXGroup;
 			children = (
@@ -174,11 +187,11 @@
 		EAE59EB2285C401200FA5F50 /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
+				EAE59EC7285C402000FA5F50 /* Supporting Files */,
 				EAE59EED285D9D4E00FA5F50 /* Extensions */,
 				EAE59EDD285C9CCE00FA5F50 /* Networking */,
 				EAE59EE0285CB7A600FA5F50 /* Constants */,
 				EAE59ECF285C4FD500FA5F50 /* Helpers */,
-				EAE59EC7285C402000FA5F50 /* Supporting Files */,
 				EAE59EC8285C402C00FA5F50 /* Controller */,
 				EAE59EC1285C401400FA5F50 /* Info.plist */,
 			);
@@ -200,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				EAE59ECB285C4F3300FA5F50 /* BaseTabBarController */,
+				EAD325D92861D8FD001A89CF /* Today */,
 				EAE59ECC285C4F3F00FA5F50 /* SearchVC */,
 				EAE59EE3285D98F400FA5F50 /* AppsVC */,
 			);
@@ -444,11 +458,13 @@
 				EAE59EEC285D9B7300FA5F50 /* AppsGroupCell.swift in Sources */,
 				EAE59EF3285D9EE800FA5F50 /* AppsHorizontalController.swift in Sources */,
 				EAD325CA28607A72001A89CF /* PreviewRowCell.swift in Sources */,
+				EAD325DB2861D916001A89CF /* TodayController.swift in Sources */,
 				EAE59EEF285D9D5C00FA5F50 /* UILabel+Extension.swift in Sources */,
 				EAD325CF2860802B001A89CF /* ScreenShotCell.swift in Sources */,
 				EAE59ECE285C4F6E00FA5F50 /* SearchVC.swift in Sources */,
 				EAE59EDB285C956000FA5F50 /* SearchResult.swift in Sources */,
 				EAA0882B285FCA6A005DF5BA /* AppDetailsController.swift in Sources */,
+				EAD325DD2861DA2C001A89CF /* TodayCell.swift in Sources */,
 				EAE59ED1285C4FE100FA5F50 /* UIView+Layout.swift in Sources */,
 				EAD325D828609C19001A89CF /* ReviewResponse.swift in Sources */,
 				EAA08828285FC16C005DF5BA /* HorizontalSnappingController.swift in Sources */,

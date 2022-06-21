@@ -7,13 +7,11 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
 
 class BaseViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     init() {

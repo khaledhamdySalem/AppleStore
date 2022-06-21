@@ -18,4 +18,5 @@ struct Idetidiers {
     static let screenShotCell = "screenShotCell"
     static let reviewRowCell = "reviewRowCell"
     static let reviewsCell = "reviewsCell"
+    static let todayCell = "todayCell"
 }
