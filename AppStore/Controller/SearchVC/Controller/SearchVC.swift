@@ -85,6 +85,12 @@ extension SearchVC: UICollectionViewDataSource, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 350)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let trackId = String (results[indexPath.item].trackId)
+        let vc = AppDetailsController(appId: trackId)
+        self.show(vc, sender: self)
+    }
 }
 
 extension SearchVC: UISearchBarDelegate {

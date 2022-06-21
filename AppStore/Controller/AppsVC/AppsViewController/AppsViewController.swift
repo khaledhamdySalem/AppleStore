@@ -117,8 +117,7 @@ extension AppsViewController: UICollectionViewDataSource, UICollectionViewDelega
         cell.controller.appGroup = groups[indexPath.item]
         cell.controller.didTapOnCell = { [weak self] feedResult in
             guard let self = self else { return }
-            let vc = AppDetailsController()
-            vc.appId = feedResult.id
+            let vc = AppDetailsController(appId: feedResult.id)
             self.show(vc, sender: self)
         }
         return cell

@@ -10,6 +10,7 @@ import UIKit
 class AppDetailsController: UIViewController {
     
     var app: Result?
+    fileprivate let appId: String
     var reviews: ReviewResponse?
     
     let collectionView: UICollectionView = {
@@ -17,27 +18,14 @@ class AppDetailsController: UIViewController {
         return collectionView
     }()
     
-    var appId: String? {
-        didSet {
-            let urlString = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
-            Service.shared.fetchGenaricJsonData(urlString: urlString) { (result: SearchResult?, err) in
-                self.app = result?.results.first
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-            
-            guard let appId = appId else { return }
-
-            let reviewUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?%7C=en&cc=us"
-            Service.shared.fetchGenaricJsonData(urlString: reviewUrl) { (result: ReviewResponse?, error) in
-                guard let result = result else { return }
-                self.reviews = result
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            }
-        }
+    
+    init(appId: String) {
+        self.appId = appId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -47,6 +35,26 @@ class AppDetailsController: UIViewController {
         collectionView.delegate = self
         title = "Details"
         navigationItem.largeTitleDisplayMode = .never
+        fetchData()
+    }
+    
+    fileprivate func fetchData() {
+        let urlString = "https://itunes.apple.com/lookup?id=\(appId )"
+        Service.shared.fetchGenaricJsonData(urlString: urlString) { (result: SearchResult?, err) in
+            self.app = result?.results.first
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        let reviewUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?%7C=en&cc=us"
+        Service.shared.fetchGenaricJsonData(urlString: reviewUrl) { (result: ReviewResponse?, error) in
+            guard let result = result else { return }
+            self.reviews = result
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     fileprivate func configureCollectionView() {
@@ -69,17 +77,17 @@ extension AppDetailsController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 {
+        
+        switch indexPath.item {
+        case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.appDetailsRowCell, for: indexPath) as! AppDetailsRowCell
-            if let app = app {
-                cell.updateCell(app: app)
-            }
+            if let app = app { cell.updateCell(app: app) }
             return cell
-        } else if indexPath.row == 1 {
+        case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.previewCell, for: indexPath) as! PreviewRowCell
             cell.controller.app = app
             return cell
-        } else {
+        default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.reviewRowCell, for: indexPath) as! ReviewRowCell
             cell.controller.reviews = reviews
             return cell
@@ -105,7 +113,9 @@ extension AppDetailsController: UICollectionViewDataSource, UICollectionViewDele
         return .init(width: view.frame.width, height: height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 0, left: 0, bottom: 16, right: 0)
     }
 }
