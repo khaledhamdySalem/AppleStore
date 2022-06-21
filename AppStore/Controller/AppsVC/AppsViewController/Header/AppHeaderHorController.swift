@@ -38,6 +38,6 @@ extension AppHeaderHorController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 48, height: view.frame.height)
+        return .init(width: view.frame.width - 42, height: view.frame.height)
     }
 }
