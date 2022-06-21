@@ -13,22 +13,22 @@ struct SearchResult: Decodable {
 }
 
 struct Result: Decodable {
-    let screenshotUrls: [String]
-    let trackName: String
-    let primaryGenreId: Int
+    let screenshotUrls: [String]?
+    let trackName: String?
+    let primaryGenreId: Int?
     let averageUserRating: Float?
-    let primaryGenreName: String
-    let artworkUrl100: String
-    let formattedPrice: String
-    let description: String
-    let releaseNotes: String
+    let primaryGenreName: String?
+    let artworkUrl100: String?
+    let formattedPrice: String?
+    let description: String?
+    let releaseNotes: String?
     
     var avgRating: String {
         return "Rating: \(Int(averageUserRating ?? 0))"
     }
     
     var imageUrl: URL {
-        return URL(string: artworkUrl100)!
+        return URL(string: artworkUrl100 ?? "")!
     }
 }
 

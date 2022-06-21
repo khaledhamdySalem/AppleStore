@@ -73,12 +73,12 @@ class SearchCell: UICollectionViewCell {
         ratingLabel.text = items.avgRating
         categoryLabel.text = items.primaryGenreName
         imageView.sd_setImage(with: items.imageUrl)
-        screenShot1.sd_setImage(with: URL(string: items.screenshotUrls[0]))
-        screenShot2.sd_setImage(with: URL(string: items.screenshotUrls[1]))
-        if items.screenshotUrls.count > 2 {
-            screenShot3.sd_setImage(with: URL(string: items.screenshotUrls[2]))
+        screenShot1.sd_setImage(with: URL(string: items.screenshotUrls?[0] ?? ""))
+        screenShot2.sd_setImage(with: URL(string: items.screenshotUrls?[1] ?? ""))
+        if items.screenshotUrls?.count ?? 0 > 2 {
+            screenShot3.sd_setImage(with: URL(string: items.screenshotUrls?[2] ?? ""))
         } else {
-            screenShot3.sd_setImage(with: URL(string: items.screenshotUrls[1]))
+            screenShot3.sd_setImage(with: URL(string: items.screenshotUrls?[1] ?? ""))
         }
     }
     

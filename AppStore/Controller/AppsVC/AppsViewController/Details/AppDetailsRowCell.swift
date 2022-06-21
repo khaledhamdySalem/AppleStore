@@ -51,7 +51,7 @@ class AppDetailsRowCell: UICollectionViewCell {
     func updateCell(app: Result) {
         nameLabel.text = app.trackName
         releaseNotesLabel.text = app.releaseNotes
-        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl100))
+        appIconImageView.sd_setImage(with: URL(string: app.artworkUrl100 ?? ""))
     }
     
     required init?(coder: NSCoder) {

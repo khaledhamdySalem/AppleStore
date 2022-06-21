@@ -97,9 +97,10 @@ extension SearchVC: UISearchBarDelegate {
     
     // MARK: -- Fetch Data For Search
     fileprivate func fetchSearchResults(searchText: String) {
-        Service.shared.fetchData(searchTerm: searchText) { searchResult, error in
+        let urlString = "https://itunes.apple.com/search?term=\(searchText)&entity=software"
+        Service.shared.fetchGenaricJsonData(urlString: urlString) { (searchResult: SearchResult?, error: Error?) in
             if let error = error { print(error) }
-            self.results = searchResult ?? []
+            self.results = searchResult?.results ?? []
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
