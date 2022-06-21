@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AppDetailsCell: UICollectionViewCell {
+class AppDetailsRowCell: UICollectionViewCell {
     
     // MARK: -- Properties
     let appIconImageView = UIImageView(cornerRad: 16, image: UIImage())
