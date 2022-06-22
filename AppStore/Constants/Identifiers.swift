@@ -5,7 +5,7 @@
 //  Created by KH on 17/06/2022.
 //
 
-import Foundation
+import UIKit
 
 struct Idetidiers {
     static let searchCell = "searchCell"
@@ -19,4 +19,8 @@ struct Idetidiers {
     static let reviewRowCell = "reviewRowCell"
     static let reviewsCell = "reviewsCell"
     static let todayCell = "todayCell"
+    
+    static let appFullScreen = "appFullScreen"
+    static let sizeOfCell: CGFloat = 450
+
 }

@@ -5,17 +5,18 @@
 //  Created by KH on 21/06/2022.
 //
 
+
 import UIKit
 
 class TodayController: BaseViewController {
     
     var startingFrame: CGRect?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = #colorLiteral(red: 0.9490196109, green: 0.9490197301, blue: 0.9490196109, alpha: 1)
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: Idetidiers.todayCell)
-//        self.tabBarController?.tabBar.isHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
 }
 
@@ -31,7 +32,7 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 64, height: 450)
+        return .init(width: view.frame.width - 64, height: Idetidiers.sizeOfCell)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -43,30 +44,33 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let redView = UIView()
+        
+        let appFullScreenController = AppFullScreenController()
+        let redView = appFullScreenController.view!
         view.addSubview(redView)
-        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView)))
-        redView.backgroundColor = .red
+        redView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleRemoveRedView(gesture:))))
         redView.layer.cornerRadius = 16
-        
+        addChild(appFullScreenController)
+                
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return}
-        self.startingFrame = startingFrame
-        
+        guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         redView.frame = startingFrame
+        self.startingFrame = startingFrame
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             redView.frame = self.view.frame
-        } completion: { _ in
-            
+            self.setTabBarHidden(true)
         }
     }
     
     @objc func handleRemoveRedView(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             gesture.view?.frame = self.startingFrame ?? .zero
+            self.setTabBarHidden(false)
         } completion: { _ in
             gesture.view?.removeFromSuperview()
         }
     }
 }
+
+
