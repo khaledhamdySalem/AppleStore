@@ -23,24 +23,47 @@ class AppFullScreenController: UITableViewController {
     }
     
     //MARK: -- Cell
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = TodayCell()
-        return header
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return Idetidiers.sizeOfCell
-    }
+    //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let header = TodayCell()
+    //        return header
+    //    }
 }
 
 extension AppFullScreenController {
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Idetidiers.appFullScreen, for: indexPath) as! AppFullCell
-        return cell
+        switch indexPath.row {
+            
+        case 0:
+            let cell = UITableViewCell()
+            let todayCell = TodayCell()
+            cell.addSubview(todayCell)
+            todayCell.centerInSuperview(size: .init(width: 250, height: 250))
+            return cell
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Idetidiers.appFullScreen, for: indexPath) as! AppFullCell
+            return cell
+            
+        default:
+            print("An error Happen")
+        }
+        
+        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return Idetidiers.sizeOfCell
+        case 1:
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        default:
+            return 0
+        }
     }
 }

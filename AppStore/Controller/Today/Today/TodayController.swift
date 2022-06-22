@@ -56,6 +56,8 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
         guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         redView.frame = startingFrame
         self.startingFrame = startingFrame
+        // ↗️☑️✔️ AutoLayout Constraint Ainmation
+        
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut) {
             redView.frame = self.view.frame
