@@ -9,47 +9,42 @@ import UIKit
 
 class AppFullScreenController: UITableViewController {
     
+    var dismissHandler: (() -> ())?
+    var todayItem: TodayItem?
+    
     // MARK: -- DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+       
+    }
+    
+    @objc func handleClose() {
+        print("👀")
     }
     
     // MARK: -- Configure Tableview
     fileprivate func configureTableView() {
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 16, right: 0)
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.register(AppFullCell.self, forCellReuseIdentifier: Idetidiers.appFullScreen)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
     }
-    
-    //MARK: -- Cell
-    //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let header = TodayCell()
-    //        return header
-    //    }
 }
 
 extension AppFullScreenController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-            
-        case 0:
-            let cell = UITableViewCell()
-            let todayCell = TodayCell()
-            cell.addSubview(todayCell)
-            todayCell.centerInSuperview(size: .init(width: 250, height: 250))
-            return cell
-            
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Idetidiers.appFullScreen, for: indexPath) as! AppFullCell
-            return cell
-            
-        default:
-            print("An error Happen")
+        if indexPath.item == 0 {
+            let headerCell = AppHeaderFullDetailsCell()
+            headerCell.closeButton.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
+            headerCell.todayCell.todayItem = todayItem
+            return headerCell
         }
         
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: Idetidiers.appFullScreen, for: indexPath) as! AppFullCell
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,5 +60,10 @@ extension AppFullScreenController {
         default:
             return 0
         }
+    }
+    
+    @objc fileprivate func handleCloseButton(button: UIButton) {
+        button.isHidden = true
+        dismissHandler?()
     }
 }

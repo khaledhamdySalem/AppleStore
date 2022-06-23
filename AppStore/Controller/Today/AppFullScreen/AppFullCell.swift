@@ -12,17 +12,14 @@ class AppFullCell: UITableViewCell {
     let descriptionLabel: UILabel = {
         let label = UILabel()
         
-        let attributeText = NSMutableAttributedString(string: "Greet games", attributes: [.foregroundColor: UIColor.black])
-        
+        let attributeText = NSMutableAttributedString(string: "Greet games ", attributes: [.foregroundColor: UIColor.black])
         attributeText.append(NSMutableAttributedString(string: "are all about the details, from subtle visual", attributes: [.foregroundColor: UIColor.gray]))
     
-        attributeText.append(NSMutableAttributedString(string: "\n\n\nHeroic adventure", attributes: [.foregroundColor: UIColor.black]))
-
+        attributeText.append(NSMutableAttributedString(string: "\n\n\nHeroic adventure ", attributes: [.foregroundColor: UIColor.black]))
         attributeText.append(NSMutableAttributedString(string: "are all about the details, from subtle visual", attributes: [.foregroundColor: UIColor.gray]))
 
-        attributeText.append(NSMutableAttributedString(string: "\n\n\nHeroic adventure", attributes: [.foregroundColor: UIColor.black]))
-
-        attributeText.append(NSMutableAttributedString(string: "are all about the details, from subtle visual", attributes: [.foregroundColor: UIColor.gray]))
+        attributeText.append(NSMutableAttributedString(string: "\n\n\nHeroic adventure ", attributes: [.foregroundColor: UIColor.black]))
+        attributeText.append(NSMutableAttributedString(string: "are all about the details, from subtle visual are all about the details, from subtle visual are all about the details, from subtle visual are all about the details, from subtle visual", attributes: [.foregroundColor: UIColor.gray]))
         
         label.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         label.numberOfLines = 0
@@ -36,7 +33,7 @@ class AppFullCell: UITableViewCell {
         addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(24)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.bottom.equalToSuperview()
         }

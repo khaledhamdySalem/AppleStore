@@ -19,8 +19,9 @@ struct Idetidiers {
     static let reviewRowCell = "reviewRowCell"
     static let reviewsCell = "reviewsCell"
     static let todayCell = "todayCell"
+    static let multipleCell = "multipleCell"
     
     static let appFullScreen = "appFullScreen"
-    static let sizeOfCell: CGFloat = 450
+    static let sizeOfCell: CGFloat = 500
 
 }

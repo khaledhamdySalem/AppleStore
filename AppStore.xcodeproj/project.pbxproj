@@ -17,6 +17,10 @@
 		EAA9897328624ECD009B3481 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA9897228624ECD009B3481 /* UIViewController+Extension.swift */; };
 		EAA9897528625098009B3481 /* AppFullScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA9897428625098009B3481 /* AppFullScreenController.swift */; };
 		EAA98977286251F6009B3481 /* AppFullCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA98976286251F6009B3481 /* AppFullCell.swift */; };
+		EAA9897B28630159009B3481 /* AppHeaderFullDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA9897A28630159009B3481 /* AppHeaderFullDetailsCell.swift */; };
+		EAA9897D28632C02009B3481 /* TodayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA9897C28632C02009B3481 /* TodayItem.swift */; };
+		EAA9897F28639DB5009B3481 /* TodayMultipleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA9897E28639DB5009B3481 /* TodayMultipleCell.swift */; };
+		EAA989832863A36B009B3481 /* BaseTodayItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA989822863A36B009B3481 /* BaseTodayItem.swift */; };
 		EAC809FD285DD8E000965F72 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC809FC285DD8E000965F72 /* AppGroup.swift */; };
 		EAD325CA28607A72001A89CF /* PreviewRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325C928607A72001A89CF /* PreviewRowCell.swift */; };
 		EAD325CC28607E2D001A89CF /* PreviewScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD325CB28607E2D001A89CF /* PreviewScreenController.swift */; };
@@ -63,6 +67,10 @@
 		EAA9897228624ECD009B3481 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		EAA9897428625098009B3481 /* AppFullScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullScreenController.swift; sourceTree = "<group>"; };
 		EAA98976286251F6009B3481 /* AppFullCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFullCell.swift; sourceTree = "<group>"; };
+		EAA9897A28630159009B3481 /* AppHeaderFullDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeaderFullDetailsCell.swift; sourceTree = "<group>"; };
+		EAA9897C28632C02009B3481 /* TodayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayItem.swift; sourceTree = "<group>"; };
+		EAA9897E28639DB5009B3481 /* TodayMultipleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleCell.swift; sourceTree = "<group>"; };
+		EAA989822863A36B009B3481 /* BaseTodayItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayItem.swift; sourceTree = "<group>"; };
 		EAC809FC285DD8E000965F72 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		EAD325C928607A72001A89CF /* PreviewRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewRowCell.swift; sourceTree = "<group>"; };
 		EAD325CB28607E2D001A89CF /* PreviewScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenController.swift; sourceTree = "<group>"; };
@@ -146,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				EAA9897428625098009B3481 /* AppFullScreenController.swift */,
+				EAA9897A28630159009B3481 /* AppHeaderFullDetailsCell.swift */,
 				EAA98976286251F6009B3481 /* AppFullCell.swift */,
 			);
 			path = AppFullScreen;
@@ -155,9 +164,27 @@
 			isa = PBXGroup;
 			children = (
 				EAD325DA2861D916001A89CF /* TodayController.swift */,
-				EAD325DC2861DA2C001A89CF /* TodayCell.swift */,
+				EAA9898128639EA8009B3481 /* Model */,
+				EAA9898028639E9F009B3481 /* Cell */,
 			);
 			path = Today;
+			sourceTree = "<group>";
+		};
+		EAA9898028639E9F009B3481 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				EAD325DC2861DA2C001A89CF /* TodayCell.swift */,
+				EAA9897E28639DB5009B3481 /* TodayMultipleCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		EAA9898128639EA8009B3481 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EAA9897C28632C02009B3481 /* TodayItem.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EAD325CD28607E32001A89CF /* PreviewScreen */ = {
@@ -184,6 +211,7 @@
 		EAD325D92861D8FD001A89CF /* Today */ = {
 			isa = PBXGroup;
 			children = (
+				EAA989822863A36B009B3481 /* BaseTodayItem.swift */,
 				EAA98979286254ED009B3481 /* Today */,
 				EAA98978286254DF009B3481 /* AppFullScreen */,
 			);
@@ -480,7 +508,9 @@
 			files = (
 				EAE59ECA285C446500FA5F50 /* BaseTabBarController.swift in Sources */,
 				EAD325D6286090FD001A89CF /* ReviewCell.swift in Sources */,
+				EAA989832863A36B009B3481 /* BaseTodayItem.swift in Sources */,
 				EAE59EEC285D9B7300FA5F50 /* AppsGroupCell.swift in Sources */,
+				EAA9897F28639DB5009B3481 /* TodayMultipleCell.swift in Sources */,
 				EAE59EF3285D9EE800FA5F50 /* AppsHorizontalController.swift in Sources */,
 				EAD325CA28607A72001A89CF /* PreviewRowCell.swift in Sources */,
 				EAD325DB2861D916001A89CF /* TodayController.swift in Sources */,
@@ -498,6 +528,7 @@
 				EAD325CC28607E2D001A89CF /* PreviewScreenController.swift in Sources */,
 				EAC809FD285DD8E000965F72 /* AppGroup.swift in Sources */,
 				EAE59EE5285D990E00FA5F50 /* AppsViewController.swift in Sources */,
+				EAA9897B28630159009B3481 /* AppHeaderFullDetailsCell.swift in Sources */,
 				EAE59ED5285C567C00FA5F50 /* SearchCell.swift in Sources */,
 				EAE59EF5285DA05600FA5F50 /* AppRowCell.swift in Sources */,
 				EAE59ED7285C60B900FA5F50 /* VerticalStackView.swift in Sources */,
@@ -513,6 +544,7 @@
 				EAA0882D285FD006005DF5BA /* AppDetailsRowCell.swift in Sources */,
 				EAD325D428609075001A89CF /* ReviewsController.swift in Sources */,
 				EA7C2941285DBEDF0044A946 /* AppHeaderHorController.swift in Sources */,
+				EAA9897D28632C02009B3481 /* TodayItem.swift in Sources */,
 				EAE59EF7285DA80A00FA5F50 /* UIImage+Extension.swift in Sources */,
 				EAA7F6E6285F63D40062EDBB /* SocialHeaderResponse.swift in Sources */,
 				EAE59EE2285CB7B200FA5F50 /* Identifiers.swift in Sources */,
