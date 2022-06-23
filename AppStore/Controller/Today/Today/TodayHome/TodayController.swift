@@ -5,7 +5,6 @@
 //  Created by KH on 21/06/2022.
 //
 
-
 import UIKit
 
 class TodayController: BaseViewController {
@@ -19,11 +18,11 @@ class TodayController: BaseViewController {
     var appFullScreenController: AppFullScreenController?
     
     let items: [TodayItem] = [
-        TodayItem.init(category: "The Daily List", title: "Test-Drive These CarPlay Apps", image: UIImage(), description: "", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), type: .multiple),
+        TodayItem.init(category: "The Daily List", title: "Test-Drive These CarPlay Apps", image: UIImage(), description: "", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .multiple),
         
-        TodayItem.init(category: "Life Hack", title: "Utilize your time", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), type: .single),
+        TodayItem.init(category: "Life Hack", title: "Utilize your time", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .single),
         
-        TodayItem.init(category: "Holidays", title: "Travel on a Budget", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 0.9785991311, green: 0.9592527747, blue: 0.7233415246, alpha: 1), type: .single)
+        TodayItem.init(category: "Holidays", title: "Travel on a Budget", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 0.9785991311, green: 0.9592527747, blue: 0.7233415246, alpha: 1), cellType: .single)
     ]
     
     // MARK: -- Life Cycle
@@ -44,9 +43,12 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cellId = items[indexPath.item].type.rawValue
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! BaseTodayCell
-        cell.todayItem = items[indexPath.item]
+        let cellID = items[indexPath.item].cellType.rawValue
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        
+        if let cell = cell as? BaseTodayCell {
+            cell.todayItem = items[indexPath.item]
+        }
         return cell
     }
     

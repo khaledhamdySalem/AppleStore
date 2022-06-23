@@ -150,41 +150,43 @@
 			path = Details;
 			sourceTree = "<group>";
 		};
-		EAA98978286254DF009B3481 /* AppFullScreen */ = {
+		EAA98979286254ED009B3481 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				EAA9898528644067009B3481 /* TodayHome */,
+				EAA9898028639E9F009B3481 /* DetailsScreen */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		EAA9898028639E9F009B3481 /* DetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EAA9898428644045009B3481 /* AppDetailsCellHeaderAndCell */,
+			);
+			path = DetailsScreen;
+			sourceTree = "<group>";
+		};
+		EAA9898428644045009B3481 /* AppDetailsCellHeaderAndCell */ = {
 			isa = PBXGroup;
 			children = (
 				EAA9897428625098009B3481 /* AppFullScreenController.swift */,
 				EAA9897A28630159009B3481 /* AppHeaderFullDetailsCell.swift */,
 				EAA98976286251F6009B3481 /* AppFullCell.swift */,
 			);
-			path = AppFullScreen;
+			path = AppDetailsCellHeaderAndCell;
 			sourceTree = "<group>";
 		};
-		EAA98979286254ED009B3481 /* Today */ = {
+		EAA9898528644067009B3481 /* TodayHome */ = {
 			isa = PBXGroup;
 			children = (
+				EAA989822863A36B009B3481 /* BaseTodayItem.swift */,
 				EAD325DA2861D916001A89CF /* TodayController.swift */,
-				EAA9898128639EA8009B3481 /* Model */,
-				EAA9898028639E9F009B3481 /* Cell */,
-			);
-			path = Today;
-			sourceTree = "<group>";
-		};
-		EAA9898028639E9F009B3481 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
 				EAD325DC2861DA2C001A89CF /* TodayCell.swift */,
 				EAA9897E28639DB5009B3481 /* TodayMultipleCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		EAA9898128639EA8009B3481 /* Model */ = {
-			isa = PBXGroup;
-			children = (
 				EAA9897C28632C02009B3481 /* TodayItem.swift */,
 			);
-			path = Model;
+			path = TodayHome;
 			sourceTree = "<group>";
 		};
 		EAD325CD28607E32001A89CF /* PreviewScreen */ = {
@@ -211,9 +213,7 @@
 		EAD325D92861D8FD001A89CF /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				EAA989822863A36B009B3481 /* BaseTodayItem.swift */,
 				EAA98979286254ED009B3481 /* Today */,
-				EAA98978286254DF009B3481 /* AppFullScreen */,
 			);
 			path = Today;
 			sourceTree = "<group>";
