@@ -13,19 +13,20 @@ class TodayMultipleCell: BaseTodayCell{
         didSet {
             categoryLabel.text = todayItem?.category
             titleLabel.text = todayItem?.title
+            controller.results = todayItem?.app ?? []
+            controller.collectionView.reloadData()
         }
     }
     
     let categoryLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 20), numberOfLines: 1, tintColor: .lightGray)
     let titleLabel = UILabel(text: "", font: .boldSystemFont(ofSize: 30), numberOfLines: 2)
-    let controller = UIViewController()
+    let controller = TodayMultipleApssController(mode: .smallScreen)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureStack()
         backgroundColor = .white
         layer.cornerRadius = 16
-        controller.view.backgroundColor = .red
     }
     
     fileprivate func configureStack() {

@@ -10,28 +10,74 @@ import UIKit
 class TodayController: BaseViewController {
     
     // MARK: -- Properties
+    let activityIndicator: UIActivityIndicatorView = {
+        let ac = UIActivityIndicatorView(style: .large)
+        ac.startAnimating()
+        ac.hidesWhenStopped = true
+        ac.color = .black
+        return ac
+    }()
+    
     var startingFrame: CGRect?
     var topConstraint: NSLayoutConstraint?
     var leadingConstraint: NSLayoutConstraint?
     var widthConstarint: NSLayoutConstraint?
     var heightConstraint: NSLayoutConstraint?
     var appFullScreenController: AppFullScreenController?
-    
-    let items: [TodayItem] = [
-        TodayItem.init(category: "The Daily List", title: "Test-Drive These CarPlay Apps", image: UIImage(), description: "", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .multiple),
-        
-        TodayItem.init(category: "Life Hack", title: "Utilize your time", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .single),
-        
-        TodayItem.init(category: "Holidays", title: "Travel on a Budget", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 0.9785991311, green: 0.9592527747, blue: 0.7233415246, alpha: 1), cellType: .single)
-    ]
+    var results = [FeedResults]()
+    var items = [TodayItem]()
     
     // MARK: -- Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureActivityIndicator()
         collectionView.backgroundColor = #colorLiteral(red: 0.9490196109, green: 0.9490197301, blue: 0.9490196109, alpha: 1)
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
         collectionView.register(TodayMultipleCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
         navigationController?.isNavigationBarHidden = true
+        fetchData()
+    }
+    
+    var freeGamesGroup: AppGroup?
+    var paidGamesGroup: AppGroup?
+    
+    fileprivate func fetchData() {
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        Service.shared.fetchFreeGames {[weak self] (appGroup, error) in
+            self?.freeGamesGroup = appGroup
+            dispatchGroup.leave()
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchPaidGames {[weak self] (appGroup, error) in
+            self?.paidGamesGroup = appGroup
+            dispatchGroup.leave()
+            
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            
+            self.activityIndicator.stopAnimating()
+            self.collectionView.reloadData()
+            
+            //freeGamesGroup?.feed.results
+            
+            self.items = [
+                TodayItem.init(category: "Free Games", title: self.freeGamesGroup?.feed.title ?? "", image: UIImage(), description: "", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .multiple, app: self.freeGamesGroup?.feed.results ?? []),
+                
+                TodayItem.init(category: "Paid Games", title: self.paidGamesGroup?.feed.title ?? "", image: UIImage(), description: "", backgroundColor: #colorLiteral(red: 1, green: 0.9999999404, blue: 1, alpha: 1), cellType: .multiple, app: self.paidGamesGroup?.feed.results ?? []),
+                
+                TodayItem.init(category: "Holidays", title: "Travel on a Budget", image: #imageLiteral(resourceName: "garden1"), description: "All the tools and apps you need to intelligently organize your life the right way", backgroundColor: #colorLiteral(red: 0.9785991311, green: 0.9592527747, blue: 0.7233415246, alpha: 1), cellType: .single, app: [])
+            ]
+        }
+    }
+    
+    fileprivate func configureActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.centerInSuperview()
     }
 }
 
@@ -68,6 +114,14 @@ extension TodayController: UICollectionViewDelegateFlowLayout {
 // MARK: -- DidSelect
 extension TodayController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if items[indexPath.item].cellType == .multiple  {
+            let fullController = TodayMultipleApssController(mode: .fullScreen)
+            fullController.results = items[indexPath.item].app
+            fullController.modalPresentationStyle = .fullScreen
+            self.present(fullController, animated: true)
+            return
+        }
         
         // // // // // // // // //☑️ 1
         let appFullScreenController = AppFullScreenController()
