@@ -1,19 +1,19 @@
 //
-//  AppHeaderFullDetailsCell.swift
+//  TodayHeaderCell.swift
 //  AppStore
 //
-//  Created by KH on 22/06/2022.
+//  Created by KH on 25/06/2022.
 //
 
 import UIKit
 
-class AppHeaderFullDetailsCell: UITableViewCell {
-        
+class TodayHeaderCell: UITableViewCell {
+
     let todayCell = TodayCell()
     let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "close.png"), for: .normal)
-        return button
+       let btn = UIButton()
+        btn.setImage(#imageLiteral(resourceName: "close.png"), for: .normal)
+        return btn
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -22,7 +22,7 @@ class AppHeaderFullDetailsCell: UITableViewCell {
         todayCell.fillSuperview()
         
         addSubview(closeButton)
-        closeButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 48, left: 0, bottom: 0, right: 0), size: .init(width: 80, height: 38))
+        closeButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 48, left: 0, bottom: 0, right: 30), size: .init(width: 30, height: 30))
     }
     
     required init?(coder: NSCoder) {

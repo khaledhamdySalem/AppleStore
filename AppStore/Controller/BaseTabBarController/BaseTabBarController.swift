@@ -13,7 +13,7 @@ class BaseTabBarController: UITabBarController {
         super.viewDidLoad()
                 
         viewControllers = [
-            createTabBarCon(TodayController(), navTitle: "Today", tabBarTitle: "Today", tabBarImage: #imageLiteral(resourceName: "today_icon")),
+            createTabBarCon(TodayViewController(), navTitle: "Today", tabBarTitle: "Today", tabBarImage: #imageLiteral(resourceName: "today_icon")),
             createTabBarCon(AppsViewController(), navTitle: "Apps", tabBarTitle: "Apps", tabBarImage: #imageLiteral(resourceName: "apps")),
             createTabBarCon(SearchVC(), navTitle: "Search", tabBarTitle: "Search", tabBarImage: #imageLiteral(resourceName: "search"))
             
@@ -28,7 +28,6 @@ class BaseTabBarController: UITabBarController {
         navController.navigationBar.prefersLargeTitles = true
         navController.tabBarItem.title = tabBarTitle
         navController.tabBarItem.image = tabBarImage
-        
         return navController
     }
 }

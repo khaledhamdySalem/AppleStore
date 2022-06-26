@@ -23,6 +23,6 @@ struct Idetidiers {
     static let todayMultipleApssController = "todayMultipleApssController"
     
     static let appFullScreen = "appFullScreen"
-    static let sizeOfCell: CGFloat = 500
+    static let sizeOfCell: CGFloat = 450
 
 }
