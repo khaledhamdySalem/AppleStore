@@ -54,6 +54,7 @@
 		EAF36726286778FA0085B81D /* MultipleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF36725286778FA0085B81D /* MultipleCollectionViewCell.swift */; };
 		EAF3672A28678BEA0085B81D /* TodayMultipleApssViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3672928678BEA0085B81D /* TodayMultipleApssViewController.swift */; };
 		EAF3672D28678C730085B81D /* MultipleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3672C28678C730085B81D /* MultipleCell.swift */; };
+		EAF3672F28683F7F0085B81D /* BaseTodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3672E28683F7F0085B81D /* BaseTodayCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +108,7 @@
 		EAF36725286778FA0085B81D /* MultipleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCollectionViewCell.swift; sourceTree = "<group>"; };
 		EAF3672928678BEA0085B81D /* TodayMultipleApssViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleApssViewController.swift; sourceTree = "<group>"; };
 		EAF3672C28678C730085B81D /* MultipleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleCell.swift; sourceTree = "<group>"; };
+		EAF3672E28683F7F0085B81D /* BaseTodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTodayCell.swift; sourceTree = "<group>"; };
 		FE390104E1B730329391F8D4 /* Pods-AppStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStore.release.xcconfig"; path = "Target Support Files/Pods-AppStore/Pods-AppStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +217,7 @@
 				EAF3672428672CD70085B81D /* Model */,
 				EAC327C3286713820026D6C2 /* TodayHome */,
 				EAC327C42867138D0026D6C2 /* TodayDetails */,
+				EAF3672E28683F7F0085B81D /* BaseTodayCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				EAD325D6286090FD001A89CF /* ReviewCell.swift in Sources */,
 				EAC327C9286716A20026D6C2 /* DescriptionCell.swift in Sources */,
 				EAE59EEC285D9B7300FA5F50 /* AppsGroupCell.swift in Sources */,
+				EAF3672F28683F7F0085B81D /* BaseTodayCell.swift in Sources */,
 				EAE59EF3285D9EE800FA5F50 /* AppsHorizontalController.swift in Sources */,
 				EAF3672D28678C730085B81D /* MultipleCell.swift in Sources */,
 				EAD325CA28607A72001A89CF /* PreviewRowCell.swift in Sources */,
