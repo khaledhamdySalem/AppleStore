@@ -1,16 +1,22 @@
 //
-//  TodayMultipleApssViewController.swift
+//  TodayMultipleAppsController.swift
 //  AppStore
 //
-//  Created by KH on 25/06/2022.
+//  Created by KH on 02/07/2022.
 //
 
 import UIKit
 
-class TodayMultipleApssViewController: BaseViewController {
+class TodayMultipleAppsController: BaseViewController {
     
-    var apps = [FeedResults]()
-    fileprivate let spacing: CGFloat = 16
+    // MARK: -- Properties
+    var appResults: [FeedResults]! {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+    let spacing: CGFloat = 16
+    
     let closeButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(#imageLiteral(resourceName: "close.png"), for: .normal)
@@ -19,9 +25,9 @@ class TodayMultipleApssViewController: BaseViewController {
         return btn
     }()
     
-    let mode: Mode
+    fileprivate let mode: Mode
     
-    enum Mode: String {
+    enum Mode {
         case smallScreen, fullScreen
     }
     
@@ -34,68 +40,72 @@ class TodayMultipleApssViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: -- Life Cycle
+    // MARK: -- LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        if mode == .fullScreen {
+            configureCloseButton()
+            collectionView.isScrollEnabled = false
+        } else {
+            collectionView.isScrollEnabled = true
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if mode == .fullScreen {
+            self.navigationController?.isNavigationBarHidden = true
+        }
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     // MARK: -- Configure CollectionView
     fileprivate func configureCollectionView() {
-        if mode == .fullScreen {
-            configureCloseButton()
-        } else {
-            collectionView.isScrollEnabled = false
-        }
-        collectionView.register(MultipleCell.self, forCellWithReuseIdentifier: "MultipleCell")
+        collectionView.register(MultipleAppCell.self, forCellWithReuseIdentifier: Idetidiers.multipleCell)
     }
     
+    // MARK: -- Configure CloseButton
     fileprivate func configureCloseButton() {
         view.addSubview(closeButton)
         closeButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(32)
+            make.top.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-8)
             make.height.equalTo(44)
             make.width.equalTo(44)
         }
     }
     
-    @objc fileprivate func handleClose() {
+    @objc fileprivate func handleClose(button: UIButton) {
         dismiss(animated: true)
-    }
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
     }
 }
 
-// MARK: -- Extension
-extension TodayMultipleApssViewController: UICollectionViewDelegateFlowLayout {
+// MARK: -- Datasourse and Delegate
+extension TodayMultipleAppsController: UICollectionViewDelegateFlowLayout {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if mode == .fullScreen {
-            return apps.count
+            return appResults.count
+        } else {
+            return min(4, appResults.count)
         }
-        return  min(4, apps.count)
     }
-    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultipleCell", for: indexPath) as! MultipleCell
-        cell.app = apps[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Idetidiers.multipleCell, for: indexPath) as! MultipleAppCell
+        cell.app = appResults[indexPath.item]
         return cell
-        
     }
-    
+        
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
-        var height: CGFloat = 68
         
         if mode == .fullScreen {
-            return .init(width: view.frame.width - 48 , height: height)
+            return .init(width: view.frame.width - 48, height: 64)
+        } else {
+            return .init(width: view.frame.width, height:  (view.frame.height - 3 * spacing) / 4)
         }
-        
-        height = (view.frame.height - 3 * spacing) / 4
-        return .init(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -107,5 +117,16 @@ extension TodayMultipleApssViewController: UICollectionViewDelegateFlowLayout {
             return .init(top: 16, left: 24, bottom: 16, right: 24)
         }
         return .zero
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if mode == .fullScreen {
+            let vc = AppDetailsController(appId: appResults[indexPath.item].id)
+            vc.modalPresentationStyle = .fullScreen
+            self.show(vc, sender: true)
+        } else {
+            let vc = AppDetailsController(appId: appResults[indexPath.item].id)
+            self.show(vc, sender: true)
+        }
     }
 }

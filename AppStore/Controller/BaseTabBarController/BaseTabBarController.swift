@@ -13,10 +13,9 @@ class BaseTabBarController: UITabBarController {
         super.viewDidLoad()
                 
         viewControllers = [
-            createTabBarCon(TodayViewController(), navTitle: "Today", tabBarTitle: "Today", tabBarImage: #imageLiteral(resourceName: "today_icon")),
-            createTabBarCon(AppsViewController(), navTitle: "Apps", tabBarTitle: "Apps", tabBarImage: #imageLiteral(resourceName: "apps")),
-            createTabBarCon(SearchVC(), navTitle: "Search", tabBarTitle: "Search", tabBarImage: #imageLiteral(resourceName: "search"))
-            
+            createTabBarCon(TodayController()     , navTitle: "Today"     , tabBarTitle: "Today"  , tabBarImage: #imageLiteral(resourceName: "today_icon")),
+            createTabBarCon(AppsViewController()  , navTitle: "Apps"      , tabBarTitle: "Apps"   , tabBarImage: #imageLiteral(resourceName: "apps")),
+            createTabBarCon(SearchVC()            , navTitle: "Search"    , tabBarTitle: "Search" , tabBarImage: #imageLiteral(resourceName: "search"))
         ]
     }
     
